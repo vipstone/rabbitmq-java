@@ -1,5 +1,8 @@
 package com.mq.rabbit;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
@@ -21,6 +24,9 @@ public class ConnectionFactoryUtil {
 		factory.setPort(Config.Port);
 		Connection conn = null;
 		try {
+			// // 高级连接使用线程池
+			// ExecutorService es = Executors.newFixedThreadPool(20);
+			// conn = factory.newConnection(es);
 			conn = factory.newConnection();
 		} catch (Exception e) {
 			e.printStackTrace();

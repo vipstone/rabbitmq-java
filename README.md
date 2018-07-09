@@ -5,10 +5,11 @@ RabbitMQ Java版使用
 
 ## 环境配置
 
-- Rabbit Server：3.7.3
+- Rabbit Server 3.7.3
 - Erlang 20.2
 - MyEclipse：2017 2.0
 - JDK 1.8.0_171
+- amqp-client 4.7.0
 
 
 

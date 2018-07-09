@@ -18,7 +18,7 @@ import com.rabbitmq.client.Envelope;
 public class DirectExchange {
 
 	public static void main(String[] args) {
-		Publisher(); // 推送消息
+		// Publisher(); // 推送消息
 
 		Consumer(); // 消费消息
 
@@ -32,6 +32,7 @@ public class DirectExchange {
 		Connection conn = ConnectionFactoryUtil.GetRabbitConnection();
 		if (conn != null) {
 			try {
+
 				// 创建通道
 				Channel channel = conn.createChannel();
 				// 声明队列【参数说明：参数一：队列名称，参数二：是否持久化；参数三：是否独占模式；参数四：消费者断开连接时是否删除队列；参数五：消息其他参数】
