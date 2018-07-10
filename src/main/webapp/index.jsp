@@ -1,4 +1,4 @@
-<%@ page import="com.mq.rabbit.DirectExchange"
+<%@ page import="com.mq.rabbit.fanoutExchange"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <body>
@@ -7,11 +7,10 @@
 	<br>
 
 	<%
-		DirectExchange.consumer("客户端1");
-		DirectExchange.consumer("客户端2");
+			fanoutExchange.publisher();
+			//fanoutExchange.consumer("work1");
+			//fanoutExchange.consumer("work2");
 	%>
-
-	<button onclick="<%DirectExchange.publisher();%>">推送消息</button>
 
 
 </body>

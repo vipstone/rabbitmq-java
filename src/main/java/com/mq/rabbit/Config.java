@@ -4,7 +4,7 @@ package com.mq.rabbit;
  * 全局配置文件
  *
  */
-public class Config {
+public class config {
 	// RabbitMQ Server相关配置
 	public static final String UserName = "test";
 	public static final String Password = "test";

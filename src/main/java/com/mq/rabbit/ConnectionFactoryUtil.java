@@ -9,16 +9,16 @@ import java.util.concurrent.TimeoutException;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-public class ConnectionFactoryUtil {
+public class connectionFactoryUtil {
 
 	// 获取rabbit连接
 	public static Connection GetRabbitConnection() throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setUsername(Config.UserName);
-		factory.setPassword(Config.Password);
-		factory.setVirtualHost(Config.VHost);
-		factory.setHost(Config.Host);
-		factory.setPort(Config.Port);
+		factory.setUsername(config.UserName);
+		factory.setPassword(config.Password);
+		factory.setVirtualHost(config.VHost);
+		factory.setHost(config.Host);
+		factory.setPort(config.Port);
 		// // 高级连接使用线程池
 		// ExecutorService es = Executors.newFixedThreadPool(20);
 		// conn = factory.newConnection(es);
@@ -31,10 +31,10 @@ public class ConnectionFactoryUtil {
 			throws KeyManagementException, NoSuchAlgorithmException, URISyntaxException, IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
 		// 连接格式：amqp://userName:password@hostName:portNumber/virtualHost
-		String uri = String.format("amqp://%s:%s@%s:%d%s", Config.UserName, Config.Password, Config.Host, Config.Port,
-				Config.VHost);
+		String uri = String.format("amqp://%s:%s@%s:%d%s", config.UserName, config.Password, config.Host, config.Port,
+				config.VHost);
 		factory.setUri(uri);
-		factory.setVirtualHost(Config.VHost);
+		factory.setVirtualHost(config.VHost);
 		Connection conn = factory.newConnection();
 		return conn;
 	}
