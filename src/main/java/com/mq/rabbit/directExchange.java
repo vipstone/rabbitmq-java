@@ -28,7 +28,7 @@ public class directExchange {
 
 		String message = String.format("当前时间：%s", new Date().getTime());
 		// 发送内容【参数说明：参数一：交换机名称；参数二：队列名称，参数三：消息的其他属性-路由的headers信息；参数四：消息主体】
-		channel.basicPublish("", config.QueueName, null, message.getBytes("UTF-8"));
+		channel.basicPublish("", config.QueueName, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
 		System.out.println("发送消息 => " + message);
 
 		// 关闭连接
