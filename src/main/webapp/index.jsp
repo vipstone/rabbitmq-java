@@ -8,6 +8,7 @@
 
 	<%
 		transaction.send();
+		transaction.consume();
 	%>
 
 <script>

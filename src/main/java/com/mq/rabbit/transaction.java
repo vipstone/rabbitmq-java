@@ -9,6 +9,7 @@ import java.util.concurrent.TimeoutException;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.GetResponse;
 import com.rabbitmq.client.MessageProperties;
 import com.sun.javafx.binding.StringFormatter;
 
@@ -48,15 +49,15 @@ public class transaction {
 			channel.txSelect(); // 声明事务
 			// 发送消息
 			channel.basicPublish("", _queueName, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
-			int result = 1 / timer;
+			// int result = 1 / timer;
 			channel.txCommit(); // 提交事务
 			long endTime = System.nanoTime();
-			System.out.println(String.format("\n---------------------------------------------\n发送内容：%s消耗时间（非事务）：%d纳秒",
-					message, (endTime - startTime)));
-
 			// System.out.println(String.format("\n---------------------------------------------\n发送内容：%s
-			// 消耗时间（事务）：%d纳秒",
+			// 消耗时间（非事务）：%d纳秒",
 			// message, (endTime - startTime)));
+
+			System.out.println(String.format("\n---------------------------------------------\n发送内容：%s 消耗时间（事务）：%d纳秒",
+					message, (endTime - startTime)));
 
 		} catch (Exception e) {
 			System.out.println("发送失败，事务回滚");
@@ -67,7 +68,30 @@ public class transaction {
 			channel.close();
 			conn.close();
 		}
+	}
 
+	/**
+	 * 消费消息
+	 * 
+	 * @throws IOException
+	 * @throws TimeoutException
+	 * @throws InterruptedException
+	 */
+	public static void consume() throws IOException, TimeoutException, InterruptedException {
+
+		Connection conn = connectionFactoryUtil.GetRabbitConnection();
+		Channel channel = conn.createChannel();
+		channel.queueDeclare(_queueName, true, false, false, null);
+		channel.txSelect();
+		GetResponse resp = channel.basicGet(_queueName, false);
+		String message = new String(resp.getBody(), "UTF-8");
+		System.out.println("收到消息：" + message);
+		// // 消息拒绝
+		// channel.basicReject(resp.getEnvelope().getDeliveryTag(), true);
+		channel.basicAck(resp.getEnvelope().getDeliveryTag(), false); // 消息确认
+		channel.txRollback();
+		channel.close();
+		conn.close();
 	}
 
 }
