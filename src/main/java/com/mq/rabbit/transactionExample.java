@@ -19,7 +19,7 @@ import com.sun.javafx.binding.StringFormatter;
  * @author stone
  *
  */
-public class transaction {
+public class transactionExample {
 
 	private static final String _queueName = "rabbitqueue"; // 队列名称
 
@@ -34,7 +34,7 @@ public class transaction {
 	 * @throws IOException
 	 * @throws TimeoutException
 	 */
-	public static void send()
+	public static void publish()
 			throws KeyManagementException, NoSuchAlgorithmException, URISyntaxException, IOException, TimeoutException {
 		// 创建连接
 		Connection conn = connectionFactoryUtil.GetRabbitConnection();
@@ -63,7 +63,7 @@ public class transaction {
 			System.out.println("发送失败，事务回滚");
 			++timer;
 			channel.txRollback();
-			send();
+			publish();
 		} finally {
 			channel.close();
 			conn.close();
