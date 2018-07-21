@@ -8,9 +8,9 @@
 </head>
 <body>
 
-<%
-confirmExample.publish();
- %>
+	<%
+		confirmExample.publish();
+	%>
 
 </body>
 </html>
