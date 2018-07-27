@@ -37,33 +37,37 @@ public class transactionExample {
 	public static void publish()
 			throws KeyManagementException, NoSuchAlgorithmException, URISyntaxException, IOException, TimeoutException {
 		// 创建连接
-		Connection conn = connectionFactoryUtil.GetRabbitConnection();
+		ConnectionFactory factory = new ConnectionFactory();
+		factory.setUsername(config.UserName);
+		factory.setPassword(config.Password);
+		factory.setVirtualHost(config.VHost);
+		factory.setHost(config.Host);
+		factory.setPort(config.Port);
+		Connection conn = factory.newConnection();
 		// 创建信道
 		Channel channel = conn.createChannel();
 		// 声明队列
 		channel.queueDeclare(_queueName, true, false, false, null);
-		String message = String.format("时间 => %s", new Date().getTime());
 
 		try {
-			long startTime = System.nanoTime();
-			channel.txSelect(); // 声明事务
-			// 发送消息
-			channel.basicPublish("", _queueName, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"));
-			// int result = 1 / timer;
-			channel.txCommit(); // 提交事务
-			long endTime = System.nanoTime();
-			// System.out.println(String.format("\n---------------------------------------------\n发送内容：%s
-			// 消耗时间（非事务）：%d纳秒",
-			// message, (endTime - startTime)));
 
-			System.out.println(String.format("\n---------------------------------------------\n发送内容：%s 消耗时间（事务）：%d纳秒",
-					message, (endTime - startTime)));
+			long startTime = System.currentTimeMillis();
+
+			for (int i = 0; i < 10000; i++) {
+				channel.txSelect(); // 声明事务
+				String message = String.format("时间 => %s", new Date().getTime());
+				// 发送消息
+				channel.basicPublish("", _queueName, MessageProperties.PERSISTENT_TEXT_PLAIN,
+						message.getBytes("UTF-8"));
+				channel.txCommit(); // 提交事务
+			}
+
+			long endTime = System.currentTimeMillis();
+
+			System.out.println("事务模式，发送1w条数据，执行花费时间：" + (endTime - startTime) + "s");
 
 		} catch (Exception e) {
-			System.out.println("发送失败，事务回滚");
-			++timer;
 			channel.txRollback();
-			publish();
 		} finally {
 			channel.close();
 			conn.close();
