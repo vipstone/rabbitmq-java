@@ -1,3 +1,4 @@
+<%@page import="com.mq.rabbit.directExchange"%>
 <%@ page import="com.mq.rabbit.transactionExample"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
@@ -7,8 +8,7 @@
 	<br>
 
 	<%
-		transactionExample.publish();
-		transactionExample.consume();
+		directExchange.publisher();
 	%>
 
 <script>
