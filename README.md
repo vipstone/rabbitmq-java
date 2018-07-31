@@ -16,10 +16,9 @@ RabbitMQ Java版使用
 ## 文档教程
 
 1. [RabbitMQ在Ubuntu上的环境搭建](https://www.cnblogs.com/vipstone/p/9184314.html)
-2. [深入解读RabbitMQ工作原理及简单使用](https://www.cnblogs.com/vipstone/p/9275256.html)
-3. Rabbit的4种交换器模式介绍与实践
-4. Rabbit事务与消息确认
-5. Rabbit集群搭建
-6. 使用HAProxy为RabbitMQ搭建负载均衡
-7. REST API控制Rabbit
+2. [深入了解RabbitMQ工作原理及简单使用](https://www.cnblogs.com/vipstone/p/9275256.html)
+3. [RabbitMQ交换器Exchange介绍与实践](https://www.cnblogs.com/vipstone/p/9295625.html)
+4. [RabbitMQ事务和Confirm发送方消息确认——深入解读](https://www.cnblogs.com/vipstone/p/9350075.html)
+5. [使用Docker部署RabbitMQ集群](https://www.cnblogs.com/vipstone/p/9362388.html)
+6. [你不知道的RabbitMQ集群架构全解](https://www.cnblogs.com/vipstone/p/9368106.html)
 
